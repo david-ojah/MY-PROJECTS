@@ -1,8 +1,8 @@
 from classes.game import Person, Bcolors
 
-magic = [{"name": "Fire Magic", "cost": 10, "damage": 100},
-         {"name": "Ice Magic", "cost": 20, "damage": 80},
-         {"name": "Lightning Magic", "cost": 5, "damage": 60}]
+magic = [{"name": "Dragon's Breath", "cost": 10, "damage": 100},
+         {"name": "Frostbite", "cost": 20, "damage": 80},
+         {"name": "Thunderbolt", "cost": 5, "damage": 60}]
 player = Person(500, 65, 34, 40, magic)
 enemy = Person(1200, 65, 40, 25, magic)
 
@@ -34,8 +34,11 @@ while running:
         if cost > current_mp:
             print(Bcolors.OKRED, "\nNot Enough magic points", Bcolors.ENDC)
             print("-------------------")
-            print("Your HP:", player.get_hp(), "\n" "Your MP:", player.get_mp())
-            print("Enemy HP:", enemy.get_hp())
+            print(Bcolors.OKGREEN + Bcolors.BOLD + "Your HP:", str(player.get_hp()),
+                  "/", str(player.get_max_hp()) + Bcolors.ENDC)
+            print(Bcolors.OKBLUE + Bcolors.BOLD + "Your MP:", str(player.get_mp()),
+                  "/", str(player.get_max_mp()) + Bcolors.ENDC)
+            print(Bcolors.OKRED + Bcolors.BOLD + "Enemy HP:", str(enemy.get_hp()) + Bcolors.ENDC)
             continue
         player.deduct_mp(cost)
 
@@ -47,9 +50,9 @@ while running:
     print("-------------------")
     print(Bcolors.OKGREEN + Bcolors.BOLD + "Your HP:", str(player.get_hp()),
           "/", str(player.get_max_hp()) + Bcolors.ENDC)
-    print(Bcolors.OKGREEN + Bcolors.BOLD + "Your MP:", str(player.get_mp()),
+    print(Bcolors.OKBLUE + Bcolors.BOLD + "Your MP:", str(player.get_mp()),
           "/", str(player.get_max_mp()) + Bcolors.ENDC)
-    print(Bcolors.OKGREEN + Bcolors.BOLD + "Enemy HP:", str(enemy.get_hp()) + Bcolors.ENDC)
+    print(Bcolors.OKRED + Bcolors.BOLD + "Enemy HP:", str(enemy.get_hp()) + Bcolors.ENDC)
 
     if enemy.get_hp() == 0:
         print(Bcolors.OKGREEN, "You've Won", Bcolors.ENDC)
