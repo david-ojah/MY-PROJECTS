@@ -13,24 +13,20 @@ class Bcolors:
 
 
 class Person:
-    def __init__(self, hp, mp, df, atk, magic):
-        self.atkl = atk - 10
-        self.atkh = atk + 10
+    def __init__(self, hp, mp, df, atk, magic, items):
+        self.atkl = atk - 25
+        self.atkh = atk + 25
         self.max_hp = hp
         self.hp = hp
         self.max_mp = mp
         self.mp = mp
         self.magic = magic
         self.df = df
-        self.actions = ["Melee Attack", "Magic"]
+        self.items = items
+        self.actions = ["Melee Attack", "Magic", "Items"]
 
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
-
-    def generate_magic_damage(self, i):
-        magic_low = self.magic[i]["damage"] - 10
-        magic_high = self.magic[i]["damage"] + 10
-        return random.randrange(magic_low, magic_high)
 
     def take_damage(self, damage):
         self.hp -= damage
@@ -58,22 +54,27 @@ class Person:
     def get_max_mp(self):
         return self.max_mp
 
-    def get_spell_name(self, i):
-        return self.magic[i]["name"]
-
-    def get_mp_spell_cost(self, i):
-        return self.magic[i]["cost"]
-
     def choose_action(self):
         i = 1
-        print("Actions")
+        print("\n" + Bcolors.OKBLUE + Bcolors.BOLD + "Actions" + Bcolors.ENDC)
         for item in self.actions:
-            print(str(i) + ":", item)
+            print(Bcolors.OKGREEN + Bcolors.BOLD + "    " + str(i) + ":", item + Bcolors.ENDC)
             i += 1
 
     def choose_magic(self):
         i = 1
-        print("Magic")
+        print("\n" + Bcolors.OKBLUE + Bcolors.BOLD + "Magic:" + Bcolors.ENDC)
+        print(Bcolors.OKBLUE + Bcolors.BOLD + "Your Mana:", str(self.mp),
+              "/", str(self.mp) + Bcolors.ENDC)
         for spell in self.magic:
-            print(str(i) + ":", spell["name"], "(cost:", str(spell["cost"]) + ")")
+            print(Bcolors.OKGREEN + Bcolors.BOLD + "    " + str(i) + ":", spell.name, "(cost:",
+                  str(spell.cost) + " Mana)" + Bcolors.ENDC)
+            i += 1
+
+    def choose_items(self):
+        i = 1
+        print("\n" + Bcolors.OKBLUE + Bcolors.BOLD + "Items:" + Bcolors.ENDC)
+        for items in self.items:
+            print(Bcolors.OKBLUE + Bcolors.BOLD + "    " + str(i) + ":", items.name, ":",
+                  items.description + Bcolors.ENDC)
             i += 1
